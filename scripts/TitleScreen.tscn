@@ -5,10 +5,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="StartButton" type="Button" parent="."]
-margin_left = 509.0
-margin_top = 267.0
-margin_right = 601.0
-margin_bottom = 292.0
-text = "Start"
+margin_left = 512.0
+margin_top = 300.0
+margin_right = 612.0
+margin_bottom = 325.0
+text = "Play"
 
 [connection signal="pressed" from="StartButton" to="." method="_on_StartButton_pressed"]
