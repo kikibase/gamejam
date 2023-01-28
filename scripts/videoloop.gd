@@ -8,6 +8,3 @@ func _ready():
 func _process(delta): 
 	if not is_playing():
 		play()
-
-func stop_video():
-	stop()
