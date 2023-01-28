@@ -10,7 +10,7 @@ var activepoint
 var Targetdir : Vector2
 var pathpointdir : Vector2
 
-export(Texture) var SpriteTex
+export(Texture) var spriteTex
 export(String, "top", "bottom", "center") var TexAnchor = "center"
 export var SPEED = 300;
 export var JUMP_HEIGHT = -500;
@@ -25,11 +25,12 @@ export(float) var jumpmaxoffset = 0
 
 var isPlayer
 var idle : bool = false
-
+var idleTimeElapsed = 0.0
+var outofrangeTimeElapsed = 0.0
 
 func _ready():
 	$ColorRect.color.a = int(enableColorRect)
-	$Sprite.texture = SpriteTex
+	$Sprite.texture = spriteTex
 	if TexAnchor == "bottom":
 		$Sprite.offset.y = 64 - ($Sprite.get_rect().size.y/2)
 	elif TexAnchor == "top":
@@ -58,6 +59,13 @@ func canSee():
 		$sight.cast_to = Vector2(0,0)
 		return false
 
+<<<<<<< HEAD
+func canJump():
+	if is_on_floor() and $jumpcasts/jumpcast.is_colliding() and not $jumpcasts/jumpmax.is_colliding() and not $jumpcasts/jumpcast.get_collider().name == "Player":
+		return true
+	else:
+		return false
+=======
 	
 
 #func canJump():
@@ -65,9 +73,15 @@ func canSee():
 #		return true
 #	else:
 #		return false
-
+>>>>>>> 5261bb742b626a8f5d8a9dfe23228fb0d1ed56f0
 
 func _physics_process(delta):
+<<<<<<< HEAD
+	motion.y += GRAVITY
+
+	if targetBody.position.x - position.x + 32 <= 50 and targetBody.position.x - position.x >= -50:
+		Targetdir.x = 0
+=======
 	#motion.y += GRAVITY
 	
 		
@@ -176,32 +190,13 @@ func _physics_process(delta):
 
 	if !canSee() and TargetActive and not $outofrange.time_left > 0:
 		$outofrange.start()
+>>>>>>> 5261bb742b626a8f5d8a9dfe23228fb0d1ed56f0
 	
-	motion = move_and_slide(motion, UP);
-	pass
-
-func _on_outofrange_timeout():
-	if !canSee():
-		TargetActive = false
-	pass # Replace with function body.
-	
-
-func _on_VisibilityNotifier2D_screen_entered():
-
-	set_physics_process(true)
-	pass # Replace with function body.
-
-
-func _on_VisibilityNotifier2D_screen_exited():
-
-	set_physics_process(false)
-	pass # Replace with function body.
-
-
-func _on_idletimer_timeout():
-	idle = false
-	if activepoint == 0:
-		activepoint = 1
-	elif activepoint == 1:
-		activepoint = 0
-	pass # Replace with function body.
+	elif targetBody.position.x - position.x > 0:
+		Targetdir.x = 1
+	elif:
+Targetdir.x = -1
+Targetdir = Targetdir.normalized() * SPEED
+motion += Targetdir
+position += motion * delta
+_check_for_collision()
