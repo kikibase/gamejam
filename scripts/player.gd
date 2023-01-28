@@ -6,10 +6,11 @@ var velocity: Vector2 = Vector2()
 var direction: Vector2 = Vector2()
 
 func _physics_process(_delta: float) -> void:
-	read_input()
-	for i in (KinematicBody2D).get_children():
+	for i in (get_parent().get_node("enemies")).get_children():
 		i.targetBody = self 
 		i.isPlayer = true #depending on whether this is your controllable player
+	read_input()
+	
 
 
 func read_input() -> void:

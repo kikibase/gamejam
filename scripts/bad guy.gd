@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 const UP = Vector2(0, -1);
-const GRAVITY = 20;
+const GRAVITY = 1;
 var motion = Vector2();
 var targetBody : CollisionObject2D
 var TargetActive : bool = false
@@ -60,33 +60,51 @@ func canSee():
 
 	
 
-func canJump():
-	if is_on_floor() and $jumpcasts/jumpcast.is_colliding() and not $jumpcasts/jumpmax.is_colliding() and not $jumpcasts/jumpcast.get_collider().name == "Player":
-		return true
-	else:
-		return false
+#func canJump():
+#	if is_on_floor() and $jumpcasts/jumpcast.is_colliding() and not $jumpcasts/jumpmax.is_colliding() and not $jumpcasts/jumpcast.get_collider().name == "Player":
+#		return true
+#	else:
+#		return false
 
 
 func _physics_process(delta):
-	motion.y += GRAVITY
+	#motion.y += GRAVITY
 	
 		
 
 	if targetBody.position.x - position.x + 32 <= 50 and targetBody.position.x - position.x >= -50:
 		Targetdir.x = 0
+		Targetdir.y = 0
 	else:
 		Targetdir.x = sign(targetBody.position.x - position.x)
+		Targetdir.y = sign(targetBody.position.x - position.x)
 		
 	if activepoint == 0:
 		if pathpointA.x - position.x <= 5 and pathpointA.x - position.x >= -5 :
 			pathpointdir.x = 0
 		else:
 			pathpointdir.x = sign(pathpointA.x - position.x)
+		
+		if pathpointA.y - position.y <= 5 and pathpointA.y - position.y >= -5 :
+			pathpointdir.y = 0
+		else:
+			pathpointdir.y = sign(pathpointA.y - position.y)
+			
 	elif activepoint == 1:
 		if pathpointB.x - position.x <= 5 and pathpointB.x - position.x >= -5:
 			pathpointdir.x = 0
 		else:
 			pathpointdir.x = sign(pathpointB.x - position.x)
+			
+		if pathpointB.y - position.y <= 5 and pathpointB.y - position.y >= -5:
+			pathpointdir.y = 0
+		else:
+			pathpointdir.y = sign(pathpointB.y - position.y)
+
+
+	
+
+
 
 	if canSee() and !TargetActive:
 		TargetActive = true
@@ -100,23 +118,32 @@ func _physics_process(delta):
 
 	if TargetActive:
 		motion.x = lerp(motion.x, Targetdir.x * SPEED, slide)
+		motion.y = lerp(motion.y, Targetdir.y * SPEED, slide)
 		if Targetdir.x == -1:
 			$eye.scale.x = -1
 			$jumpcasts.scale.x = -1
 		elif Targetdir.x == 1:
 			$eye.scale.x = 1
 			$jumpcasts.scale.x = 1
+		if Targetdir.y == -1:
+			$eye.scale.y = -1
+			$jumpcasts.scale.y = -1
+		elif Targetdir.y == 1:
+			$eye.scale.y = 1
+			$jumpcasts.scale.y = 1
 		
-		if canJump():
-			motion.y = JUMP_HEIGHT
+		
+			#motion.y = JUMP_HEIGHT
 	else:
 		if activepoint == null:
 			activepoint = 0
 			
 		if not idle:
 			motion.x = lerp(motion.x,pathpointdir.x * SPEED, slide)
+			motion.y = lerp(motion.y,pathpointdir.y * SPEED, slide)
 		elif idle:
 			motion.x = 0
+			motion.y = 0
 		
 		if pathpointdir.x == -1:
 			$eye.scale.x = -1
@@ -131,8 +158,21 @@ func _physics_process(delta):
 			$eye.scale.x = $eye.scale.x
 			$jumpcasts.scale.x = $jumpcasts.scale.x
 			
-		if canJump():
-			motion.y = JUMP_HEIGHT
+		if pathpointdir.y == -1:
+			$eye.scale.y = -1
+			$jumpcasts.scale.y = -1
+		elif pathpointdir.y == 1:
+			$eye.scale.y = 1
+			$jumpcasts.scale.y = 1
+		elif pathpointdir.y == 0:
+			idle = true
+			if $idletimer.time_left == 0:
+				$idletimer.start()
+			$eye.scale.y = $eye.scale.y
+			$jumpcasts.scale.y = $jumpcasts.scale.y
+			
+		#if canJump():
+		#	motion.y = JUMP_HEIGHT
 
 	if !canSee() and TargetActive and not $outofrange.time_left > 0:
 		$outofrange.start()
