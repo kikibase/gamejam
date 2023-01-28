@@ -5,9 +5,8 @@ export var speed_multipler = 500
 var velocity: Vector2 = Vector2()
 var direction: Vector2 = Vector2()
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	read_input()
-	
 
 
 func read_input() -> void:
@@ -19,8 +18,7 @@ func read_input() -> void:
 		move_player(-1,0)
 	if Input.is_action_pressed("right"):
 		move_player(1,0)
-	
-	
+
 
 func move_player(x_coords, y_coords) -> void:#dunction to move player
 	velocity.y+=y_coords#change character position in y-axis
@@ -28,4 +26,5 @@ func move_player(x_coords, y_coords) -> void:#dunction to move player
 	
 	direction = Vector2(x_coords,y_coords)#to set the current direction of the player
 	velocity = velocity.normalized()#normalizes the velocity to the current 
+# warning-ignore:return_value_discarded
 	move_and_slide(velocity*speed_multipler)
