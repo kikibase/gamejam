@@ -74,10 +74,13 @@ func _physics_process(delta):
 
 	if targetBody.position.x - position.x + 32 <= 50 and targetBody.position.x - position.x >= -50:
 		Targetdir.x = 0
-		Targetdir.y = 0
 	else:
 		Targetdir.x = sign(targetBody.position.x - position.x)
-		Targetdir.y = sign(targetBody.position.x - position.x)
+	
+	if targetBody.position.y - position.y + 32 <= 50 and targetBody.position.y - position.y >= -50:
+		Targetdir.y = 0
+	else:
+		Targetdir.y = sign(targetBody.position.y - position.y)
 		
 	if activepoint == 0:
 		if pathpointA.x - position.x <= 5 and pathpointA.x - position.x >= -5 :
