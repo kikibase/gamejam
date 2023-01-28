@@ -144,6 +144,7 @@ tile_data = PoolIntArray( -3342406, 0, 0, -3342405, 1, 0, -3342404, 1, 0, -33424
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 168, 175 )
 collision/safe_margin = 0.001
+speed_multipler = null
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( 180, 119 )
