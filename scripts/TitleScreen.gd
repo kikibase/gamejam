@@ -8,3 +8,7 @@ func _on_StartButton_pressed():
 
 func _process(delta: float) -> void:
 	pass
+
+
+func _on_OptionButton_pressed():
+	  get_tree().change_scene("res://scenes/Trolls.tscn")        # Replace with function body.

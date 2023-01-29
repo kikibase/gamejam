@@ -1,0 +1,58 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://assets/Background video/backvideo.ogv" type="VideoStream" id=1]
+[ext_resource path="res://scripts/videoloop.gd" type="Script" id=2]
+[ext_resource path="res://chalk-lines-vector-23830253.jpg" type="Texture" id=3]
+[ext_resource path="res://Godot-Fontpack-(1)/Godot-Fontpack-d244bf6170b399a6d4d26a0d906058ddf2dafdf1/fonts/architect-s-daughter/ArchitectsDaughter.ttf" type="DynamicFontData" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 50
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 45
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 4 )
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VideoPlayer" type="VideoPlayer" parent="."]
+margin_top = -7.0
+margin_right = 1021.0
+margin_bottom = 669.0
+stream = ExtResource( 1 )
+autoplay = true
+script = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="VideoPlayer"]
+anchor_top = 0.056
+anchor_bottom = 0.056
+margin_left = -34.0
+margin_top = 54.144
+margin_right = 996.0
+margin_bottom = 469.144
+custom_fonts/font = SubResource( 1 )
+text = "         system    corrupt  
+        no  controls available"
+uppercase = true
+
+[node name="MenuButton" type="MenuButton" parent="."]
+margin_left = 519.0
+margin_top = 441.0
+margin_right = 1009.0
+margin_bottom = 556.0
+icon = ExtResource( 3 )
+
+[node name="Label" type="Label" parent="MenuButton"]
+margin_left = 158.0
+margin_top = 17.0
+margin_right = 429.0
+margin_bottom = 96.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "menu?"
+uppercase = true
+
+[connection signal="pressed" from="MenuButton" to="VideoPlayer" method="_on_MenuButton_pressed"]
