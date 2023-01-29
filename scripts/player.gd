@@ -2,9 +2,16 @@ extends KinematicBody2D
 
 onready var _animated_sprite = $AnimatedSprite
 export var speed_multipler = 500
-
 var velocity: Vector2 = Vector2()
 var direction: Vector2 = Vector2()
+var attack_instance_area
+var world_instance
+var score#kill counter
+
+
+func _ready() -> void:
+	attack_instance_area = $Area2D
+	
 
 func _physics_process(_delta: float) -> void:
 	for i in (get_parent().get_node("enemies")).get_children():
@@ -37,7 +44,8 @@ func read_input() -> void:
 	if not Input.is_action_pressed("melee_attack") and not Input.is_action_pressed("up") and not Input.is_action_pressed("down") and not Input.is_action_pressed("left") and not Input.is_action_pressed("right"):
 		if _animated_sprite.frame ==7:
 			_animated_sprite.play("idle")
-			$CollisionShape2D2.disabled = true
+			#_is_attacking = false
+			#$CollisionShape2D2.disabled = true
 		
 		
 	
@@ -59,5 +67,11 @@ func move_player(x_coords, y_coords) -> void:#dunction to move player
 
 func attack():
 	_animated_sprite.play("attack")
-	$CollisionShape2D2.disabled = true
-	get_child(1).delete
+	for body in attack_instance_area.get_overlapping_bodies():
+		if body !=  self :
+			if body != (get_parent().get_child(2)):
+				body.get_child(8).play("defeat")
+				if body.get_child(8).frame == 11:
+					body.position.x = 999999999999999999
+					body.position.y = 999999999999999999
+					score+=1

@@ -1,13 +1,31 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scripts/bad guy.gd" type="Script" id=1]
-[ext_resource path="res://assets/Enemies/Enemy 3.png" type="Texture" id=2]
+[ext_resource path="res://assets/character materials/2D Explosions pixel-art pack 3/5/1.png" type="Texture" id=2]
+[ext_resource path="res://assets/character materials/2D Explosions pixel-art pack 3/5/3.png" type="Texture" id=3]
+[ext_resource path="res://assets/character materials/2D Explosions pixel-art pack 3/5/5.png" type="Texture" id=4]
+[ext_resource path="res://assets/Enemies/Enemy 1.png" type="Texture" id=5]
+[ext_resource path="res://assets/character materials/2D Explosions pixel-art pack 3/5/4.png" type="Texture" id=6]
+[ext_resource path="res://assets/character materials/2D Explosions pixel-art pack 3/5/2.png" type="Texture" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 32, 64 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 512, 256 )
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 2 ), ExtResource( 7 ), ExtResource( 7 ), ExtResource( 3 ), ExtResource( 3 ), ExtResource( 6 ), ExtResource( 6 ), ExtResource( 4 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "defeat",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "normal",
+"speed": 5.0
+} ]
 
 [node name="bad guy" type="KinematicBody2D"]
 scale = Vector2( 0.692052, 0.346254 )
@@ -60,10 +78,12 @@ scale = Vector2( 47.7479, 37.7154 )
 [node name="idletimer" type="Timer" parent="."]
 one_shot = true
 
-[node name="Sprite2" type="Sprite" parent="."]
-position = Vector2( -1.19209e-07, 2.88805 )
-scale = Vector2( 0.0515645, 0.100998 )
-texture = ExtResource( 2 )
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0.608336, -0.931068 )
+scale = Vector2( 0.292781, 0.388221 )
+frames = SubResource( 3 )
+animation = "normal"
+playing = true
 
 [connection signal="timeout" from="outofrange" to="." method="_on_outofrange_timeout"]
 [connection signal="screen_entered" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
