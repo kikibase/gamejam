@@ -73,8 +73,10 @@ func attack():
 				body.get_child(8).play("defeat")
 				body.get_child(1).disabled =true
 				body.stop = true
+				score+=1
+				$Camera2D.get_child(0).text = "Kill Count : " +str(score)
 				yield(get_tree().create_timer(1),"timeout")
 				body.position.x = 999999999999999999
 				body.position.y = 999999999999999999
-				score+=1
+				
 				

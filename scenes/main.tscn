@@ -181,6 +181,13 @@ speed_multipler = 250
 position = Vector2( 6, 11 )
 current = true
 
+[node name="Label" type="Label" parent="player/Camera2D"]
+margin_left = 221.931
+margin_top = -180.363
+margin_right = 265.931
+margin_bottom = -154.363
+text = "Kill Count:"
+
 [node name="enemies" type="Node2D" parent="."]
 use_parent_material = true
 script = ExtResource( 7 )
