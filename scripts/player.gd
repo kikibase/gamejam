@@ -76,6 +76,13 @@ func attack():
 	for body in attack_instance_area.get_overlapping_bodies():
 		if body !=  self :
 			if body != (get_parent().get_child(2)):
+				#for i in range((get_parent().get_child(5).get_child_count())):
+				#	if  body != get_parent().get_child(5).get_child(i).get_child(0):
+				#		continue
+				#		if i <= get_parent().get_child(5).get_child_count():
+				#			pass
+				#	else:
+				#		break
 				body.get_child(8).play("defeat")
 				body.get_child(1).disabled =true
 				body.stop = true
@@ -84,5 +91,3 @@ func attack():
 				yield(get_tree().create_timer(1),"timeout")
 				body.position.x = 999999999999999999
 				body.position.y = 999999999999999999
-				
-				

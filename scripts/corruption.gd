@@ -1,16 +1,14 @@
-extends Node
+extends Node2D
 
 
-# Declare member variables here. Examples:
-# var a: int = 2
-# var b: String = "text"
-
-
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta: float) -> void:
-#	pass
+	var rand = RandomNumberGenerator.new()
+	var getscene = load("res://scenes/corruption.tscn")
+	while true:
+		yield(get_tree().create_timer(0.5),"timeout")
+		var enemy = getscene.instance()
+		rand.randomize()
+		enemy.position.x = rand.randf_range(-1000,2100)
+		rand.randomize()
+		enemy.position.y = rand.randf_range(-1000,2400)
+		add_child(enemy)

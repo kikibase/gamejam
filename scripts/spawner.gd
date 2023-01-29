@@ -1,6 +1,6 @@
 extends Node2D
 
-export var initial_no_of_enemies = 10000000000000
+export var initial_no_of_enemies = 20000
 
 func _ready() -> void:
 	var rand = RandomNumberGenerator.new()
