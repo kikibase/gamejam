@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scripts/bad guy.gd" type="Script" id=1]
+[ext_resource path="res://assets/Enemies/Enemy 3.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 32, 64 )
@@ -9,6 +10,7 @@ extents = Vector2( 32, 64 )
 extents = Vector2( 512, 256 )
 
 [node name="bad guy" type="KinematicBody2D"]
+scale = Vector2( 0.692052, 0.346254 )
 collision_layer = 4
 script = ExtResource( 1 )
 canAlwaysSee = "always"
@@ -26,7 +28,7 @@ shape = SubResource( 1 )
 position = Vector2( 0, -64 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="eye"]
-position = Vector2( -3, 62 )
+position = Vector2( -3, 69 )
 shape = SubResource( 2 )
 
 [node name="outofrange" type="Timer" parent="."]
@@ -52,7 +54,6 @@ cast_to = Vector2( -6, 1 )
 collision_mask = 3
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
-visible = false
 position = Vector2( 2.67029e-05, -1.52588e-05 )
 scale = Vector2( 47.7479, 37.7154 )
 
@@ -60,6 +61,9 @@ scale = Vector2( 47.7479, 37.7154 )
 one_shot = true
 
 [node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0.424397, 1.10995 )
+scale = Vector2( 0.0508761, 0.103959 )
+texture = ExtResource( 2 )
 __meta__ = {
 "_editor_description_": ""
 }
