@@ -7,6 +7,8 @@ var direction: Vector2 = Vector2()
 var attack_instance_area
 var world_instance
 var score = 0#kill counter
+var timer = 45# Time left
+var counter = 0#counter
 
 
 func _ready() -> void:
@@ -14,6 +16,10 @@ func _ready() -> void:
 	
 
 func _physics_process(_delta: float) -> void:
+	$Camera2D.get_child(1).text = "Time Left : " +str(timer)
+	counter+=1
+	if counter % 60 == 0:
+		timer-=1
 	for i in (get_parent().get_node("enemies")).get_children():
 		i.targetBody = self 
 		i.isPlayer = true #depending on whether this is your controllable player
