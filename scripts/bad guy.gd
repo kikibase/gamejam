@@ -10,7 +10,7 @@ var activepoint
 var Targetdir : Vector2
 var pathpointdir : Vector2
 
-export(Texture) var SpriteTex
+#export(Texture) var SpriteTex
 export(String, "top", "bottom", "center") var TexAnchor = "center"
 export var SPEED = 300;
 export var JUMP_HEIGHT = -500;
@@ -29,13 +29,13 @@ var idle : bool = false
 
 func _ready():
 	$ColorRect.color.a = int(enableColorRect)
-	$Sprite.texture = SpriteTex
-	if TexAnchor == "bottom":
-		$Sprite.offset.y = 64 - ($Sprite.get_rect().size.y/2)
-	elif TexAnchor == "top":
-		$Sprite.offset.y = -64 + ($Sprite.get_rect().size.y/2)
-	elif TexAnchor == "center":
-		$Sprite.offset.y = 0
+	#$Sprite.texture = SpriteTex
+	#if TexAnchor == "bottom":
+		#$Sprite.offset.y = 64 - ($Sprite.get_rect().size.y/2)
+	#elif TexAnchor == "top":
+		#$Sprite.offset.y = -64 + ($Sprite.get_rect().size.y/2)
+	#elif TexAnchor == "center":
+		#$Sprite.offset.y = 0
 	$idletimer.wait_time = idleTime
 	$outofrange.wait_time = outofrangeTime
 	$jumpcasts/jumpmax.translate(Vector2(0,jumpmaxoffset))

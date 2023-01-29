@@ -54,19 +54,16 @@ cast_to = Vector2( -6, 1 )
 collision_mask = 3
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
-position = Vector2( 2.67029e-05, -1.52588e-05 )
+position = Vector2( -39.0144, 5.77611 )
 scale = Vector2( 47.7479, 37.7154 )
 
 [node name="idletimer" type="Timer" parent="."]
 one_shot = true
 
-[node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 0.424397, 1.10995 )
-scale = Vector2( 0.0508761, 0.103959 )
+[node name="Sprite2" type="Sprite" parent="."]
+position = Vector2( -1.19209e-07, 2.88805 )
+scale = Vector2( 0.0515645, 0.100998 )
 texture = ExtResource( 2 )
-__meta__ = {
-"_editor_description_": ""
-}
 
 [connection signal="timeout" from="outofrange" to="." method="_on_outofrange_timeout"]
 [connection signal="screen_entered" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
