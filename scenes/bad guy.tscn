@@ -79,8 +79,8 @@ scale = Vector2( 47.7479, 37.7154 )
 one_shot = true
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( 0.608336, -0.931068 )
-scale = Vector2( 0.292781, 0.388221 )
+position = Vector2( 0, -1.06276 )
+scale = Vector2( 1.88339, 4.0375 )
 frames = SubResource( 3 )
 animation = "normal"
 playing = true

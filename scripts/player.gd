@@ -6,7 +6,7 @@ var velocity: Vector2 = Vector2()
 var direction: Vector2 = Vector2()
 var attack_instance_area
 var world_instance
-var score#kill counter
+var score = 0#kill counter
 
 
 func _ready() -> void:
@@ -71,7 +71,10 @@ func attack():
 		if body !=  self :
 			if body != (get_parent().get_child(2)):
 				body.get_child(8).play("defeat")
-				if body.get_child(8).frame == 11:
-					body.position.x = 999999999999999999
-					body.position.y = 999999999999999999
-					score+=1
+				body.get_child(1).disabled =true
+				body.stop = true
+				yield(get_tree().create_timer(1),"timeout")
+				body.position.x = 999999999999999999
+				body.position.y = 999999999999999999
+				score+=1
+				

@@ -22,6 +22,7 @@ export var outofrangeTime = 2.0
 export(String, "never", "none", "always") var canAlwaysSee = "none"
 export(bool) var enableColorRect = false
 export(float) var jumpmaxoffset = 0
+export var stop = false
 
 var isPlayer
 var idle : bool = false
@@ -70,118 +71,118 @@ func canSee():
 func _physics_process(delta):
 	#motion.y += GRAVITY
 	
-		
+	if stop == false:
 
-	if targetBody.position.x - position.x + 32 <= 50 and targetBody.position.x - position.x >= -50:
-		Targetdir.x = 0
-	else:
-		Targetdir.x = sign(targetBody.position.x - position.x)
-	
-	if targetBody.position.y - position.y + 32 <= 50 and targetBody.position.y - position.y >= -50:
-		Targetdir.y = 0
-	else:
-		Targetdir.y = sign(targetBody.position.y - position.y)
-		
-	if activepoint == 0:
-		if pathpointA.x - position.x <= 5 and pathpointA.x - position.x >= -5 :
-			pathpointdir.x = 0
+		if targetBody.position.x - position.x + 32 <= 50 and targetBody.position.x - position.x >= -50:
+			Targetdir.x = 0
 		else:
-			pathpointdir.x = sign(pathpointA.x - position.x)
+			Targetdir.x = sign(targetBody.position.x - position.x)
 		
-		if pathpointA.y - position.y <= 5 and pathpointA.y - position.y >= -5 :
-			pathpointdir.y = 0
+		if targetBody.position.y - position.y + 32 <= 50 and targetBody.position.y - position.y >= -50:
+			Targetdir.y = 0
 		else:
-			pathpointdir.y = sign(pathpointA.y - position.y)
+			Targetdir.y = sign(targetBody.position.y - position.y)
 			
-	elif activepoint == 1:
-		if pathpointB.x - position.x <= 5 and pathpointB.x - position.x >= -5:
-			pathpointdir.x = 0
+		if activepoint == 0:
+			if pathpointA.x - position.x <= 5 and pathpointA.x - position.x >= -5 :
+				pathpointdir.x = 0
+			else:
+				pathpointdir.x = sign(pathpointA.x - position.x)
+			
+			if pathpointA.y - position.y <= 5 and pathpointA.y - position.y >= -5 :
+				pathpointdir.y = 0
+			else:
+				pathpointdir.y = sign(pathpointA.y - position.y)
+				
+		elif activepoint == 1:
+			if pathpointB.x - position.x <= 5 and pathpointB.x - position.x >= -5:
+				pathpointdir.x = 0
+			else:
+				pathpointdir.x = sign(pathpointB.x - position.x)
+				
+			if pathpointB.y - position.y <= 5 and pathpointB.y - position.y >= -5:
+				pathpointdir.y = 0
+			else:
+				pathpointdir.y = sign(pathpointB.y - position.y)
+
+
+		
+
+
+
+		if canSee() and !TargetActive:
+			TargetActive = true
+			
+		if canAlwaysSee == "always":
+			TargetActive = true
+		elif canAlwaysSee == "never":
+			TargetActive = false
 		else:
-			pathpointdir.x = sign(pathpointB.x - position.x)
+			TargetActive = TargetActive
+
+		if TargetActive:
+			motion.x = lerp(motion.x, Targetdir.x * SPEED, slide)
+			motion.y = lerp(motion.y, Targetdir.y * SPEED, slide)
+			if Targetdir.x == -1:
+				$eye.scale.x = -1
+				$jumpcasts.scale.x = -1
+			elif Targetdir.x == 1:
+				$eye.scale.x = 1
+				$jumpcasts.scale.x = 1
+			if Targetdir.y == -1:
+				$eye.scale.y = -1
+				$jumpcasts.scale.y = -1
+			elif Targetdir.y == 1:
+				$eye.scale.y = 1
+				$jumpcasts.scale.y = 1
 			
-		if pathpointB.y - position.y <= 5 and pathpointB.y - position.y >= -5:
-			pathpointdir.y = 0
+			
+				#motion.y = JUMP_HEIGHT
 		else:
-			pathpointdir.y = sign(pathpointB.y - position.y)
-
-
-	
-
-
-
-	if canSee() and !TargetActive:
-		TargetActive = true
-		
-	if canAlwaysSee == "always":
-		TargetActive = true
-	elif canAlwaysSee == "never":
-		TargetActive = false
-	else:
-		TargetActive = TargetActive
-
-	if TargetActive:
-		motion.x = lerp(motion.x, Targetdir.x * SPEED, slide)
-		motion.y = lerp(motion.y, Targetdir.y * SPEED, slide)
-		if Targetdir.x == -1:
-			$eye.scale.x = -1
-			$jumpcasts.scale.x = -1
-		elif Targetdir.x == 1:
-			$eye.scale.x = 1
-			$jumpcasts.scale.x = 1
-		if Targetdir.y == -1:
-			$eye.scale.y = -1
-			$jumpcasts.scale.y = -1
-		elif Targetdir.y == 1:
-			$eye.scale.y = 1
-			$jumpcasts.scale.y = 1
-		
-		
-			#motion.y = JUMP_HEIGHT
-	else:
-		if activepoint == null:
-			activepoint = 0
+			if activepoint == null:
+				activepoint = 0
+				
+			if not idle:
+				motion.x = lerp(motion.x,pathpointdir.x * SPEED, slide)
+				motion.y = lerp(motion.y,pathpointdir.y * SPEED, slide)
+			elif idle:
+				motion.x = 0
+				motion.y = 0
 			
-		if not idle:
-			motion.x = lerp(motion.x,pathpointdir.x * SPEED, slide)
-			motion.y = lerp(motion.y,pathpointdir.y * SPEED, slide)
-		elif idle:
-			motion.x = 0
-			motion.y = 0
-		
-		if pathpointdir.x == -1:
-			$eye.scale.x = -1
-			$jumpcasts.scale.x = -1
-		elif pathpointdir.x == 1:
-			$eye.scale.x = 1
-			$jumpcasts.scale.x = 1
-		elif pathpointdir.x == 0:
-			idle = true
-			if $idletimer.time_left == 0:
-				$idletimer.start()
-			$eye.scale.x = $eye.scale.x
-			$jumpcasts.scale.x = $jumpcasts.scale.x
-			
-		if pathpointdir.y == -1:
-			$eye.scale.y = -1
-			$jumpcasts.scale.y = -1
-		elif pathpointdir.y == 1:
-			$eye.scale.y = 1
-			$jumpcasts.scale.y = 1
-		elif pathpointdir.y == 0:
-			idle = true
-			if $idletimer.time_left == 0:
-				$idletimer.start()
-			$eye.scale.y = $eye.scale.y
-			$jumpcasts.scale.y = $jumpcasts.scale.y
-			
-		#if canJump():
-		#	motion.y = JUMP_HEIGHT
+			if pathpointdir.x == -1:
+				$eye.scale.x = -1
+				$jumpcasts.scale.x = -1
+			elif pathpointdir.x == 1:
+				$eye.scale.x = 1
+				$jumpcasts.scale.x = 1
+			elif pathpointdir.x == 0:
+				idle = true
+				if $idletimer.time_left == 0:
+					$idletimer.start()
+				$eye.scale.x = $eye.scale.x
+				$jumpcasts.scale.x = $jumpcasts.scale.x
+				
+			if pathpointdir.y == -1:
+				$eye.scale.y = -1
+				$jumpcasts.scale.y = -1
+			elif pathpointdir.y == 1:
+				$eye.scale.y = 1
+				$jumpcasts.scale.y = 1
+			elif pathpointdir.y == 0:
+				idle = true
+				if $idletimer.time_left == 0:
+					$idletimer.start()
+				$eye.scale.y = $eye.scale.y
+				$jumpcasts.scale.y = $jumpcasts.scale.y
+				
+			#if canJump():
+			#	motion.y = JUMP_HEIGHT
 
-	if !canSee() and TargetActive and not $outofrange.time_left > 0:
-		$outofrange.start()
-	
-	motion = move_and_slide(motion, UP);
-	pass
+		if !canSee() and TargetActive and not $outofrange.time_left > 0:
+			$outofrange.start()
+		
+		motion = move_and_slide(motion, UP);
+		pass
 
 func _on_outofrange_timeout():
 	if !canSee():
