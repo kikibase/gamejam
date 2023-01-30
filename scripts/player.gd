@@ -7,8 +7,9 @@ var direction: Vector2 = Vector2()
 var attack_instance_area
 var world_instance
 var score = 0#kill counter
-var timer = 45# Time left
-var counter = 0#counter
+var timer = 5# Time left
+export var counter = 0#counter
+export var health = 0
 
 
 func _ready() -> void:
